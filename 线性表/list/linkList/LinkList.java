@@ -21,7 +21,14 @@ public class LinkList implements IList {
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		Node current = head;
+		Node next;
+		while(current.getNext() != null){
+			next = current.getNext();
+			current.setData(0);
+			current.setNext(null);
+			current = next;
+		}
 		head.setData(-1);
 		head.setNext(null);
 	}
@@ -30,8 +37,8 @@ public class LinkList implements IList {
 	public void display() throws Exception {
 		// TODO Auto-generated method stub
 		Node current = head.getNext();
-		if (current == null || head == null)
-			System.out.println("å½“å‰é“¾è¡¨ä¸ºç©º");
+		if (current == null)
+			System.out.println("µ±Ç°Á´±íÎª¿Õ");
 		while (current != null) {
 			System.out.print(current.getData()+"  ");
 			current = current.getNext();
@@ -43,27 +50,30 @@ public class LinkList implements IList {
 		// TODO Auto-generated method stub
 		Node current = head.getNext();
 		int index = 0;
-		if(head == null)
+		if(current == null)
 			return -1;
 		if(i < 0 || i > length())
-			System.out.println("è®¿é—®çš„é“¾è¡¨ä½ç½®æœ‰è¯¯");
+			System.out.println("·ÃÎÊµÄÁ´±íÎ»ÖÃÓĞÎó");
 		while(current != null){
 			if(++index == i)
 				return current.getData();
+			current = current.getNext();
 		}
 		return -1;
 	}
 
 	@Override
 	public int indexOf(int x) {
-		// TODO Auto-generated method stub
 		Node current = head.getNext();
 		int index = 0;
-		while (current.getNext() != null) {
+		while (current!= null) {
 			index++;
 			if (current.getData() == x)
 				break;
+			current = current.getNext();
 		}
+		if(current == null)
+			return -1;
 		return index;
 	}
 
@@ -72,20 +82,22 @@ public class LinkList implements IList {
 	@Override
 	public void insert(int x) throws Exception {
 		// TODO Auto-generated method stub
-		Node current = null;
+		Node current = head;
 		Node newNode = new Node(x);
-		if(head == null) {
+		if(current.getNext() == null){
 			head.setNext(newNode);
-			current = newNode;
+			current = current.getNext();
+			System.out.println("Ìí¼ÓµÚÒ»¸öÔªËØ³É¹¦£¡");
 		}else{
-			current = head;
 			while(current.getNext() != null) {
 				current = current.getNext();
 			}
 			current.setNext(newNode);
+			System.out.println("Ìí¼Ó³É¹¦£¡");
 		}
+		
 	}
-	//æ’å…¥æŒ‡å®šä½ç½®
+	//²åÈëÖ¸¶¨Î»ÖÃ
 	@Override
 	public void insert(int num, int x) throws Exception {
 		// TODO Auto-generated method stub
@@ -93,19 +105,16 @@ public class LinkList implements IList {
 		Node newNode = new Node(x);
 		int i = 0;
 		while(current.getNext() != null){
-			current = current.getNext();
-			i++;
 			if(i > length())
-				return ;
-
-			if(num == i -1){
-				newNode.setNext(current);
+				break;
+			if(num == ++i){
+				newNode.setNext(current.getNext());
 				current.setNext(newNode);
-				System.out.println("æ·»åŠ æˆåŠŸï¼");
-				return;
+				System.out.println("Ìí¼Ó³É¹¦£¡");
+				break;
 			}
+			current = current.getNext();
 		}
-		System.out.println("æ·»åŠ å¤±è´¥");
 	}
 
 	@Override
@@ -116,24 +125,13 @@ public class LinkList implements IList {
 
 	@Override
 	public int length() {
-		// TODO Auto-generated method stub
+		Node current = head;
 		int i = 0;
-		while (head.getNext() != null)
+		while (current.getNext() != null){
 			i++;
-		return i;
-	}
-	public void remove() throws NumberFormatException, Exception{
-		System.out.println("1.æŒ‰åºå·åˆ é™¤  2.æŒ‰æ•°æ®å…ƒç´ åˆ é™¤");
-		Scanner scanner = new Scanner(System.in);
-		int num = Integer.valueOf(scanner.nextLine());
-		if(num == 1){
-			System.out.println("è¯·è¾“å…¥æ•°æ®ï¼š");
-			remove(Integer.valueOf(scanner.nextLine()));
-		}else if(num == 2){
-			remove(scanner.nextLine());
-		}else{
-			
+			current = current.getNext();
 		}
+		return i;
 	}
 
 	@Override
@@ -144,15 +142,6 @@ public class LinkList implements IList {
 		while(current != null){
 			index++;
 			if(index == i - 1){
-				current.setNext(current.getNext().getNext());
-			}
-			current = current.getNext();
-		}
-	}
-	public void remove(Object obj){
-		Node current = head.getNext();
-		while(current != null){
-			if(obj.equals(current.getData())){
 				current.setNext(current.getNext().getNext());
 			}
 			current = current.getNext();

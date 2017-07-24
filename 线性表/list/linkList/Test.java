@@ -10,6 +10,8 @@ public class Test {
 		list.insert(55);
 		list.insert(1,11);
 		list.display();
-		list.remove(1);
+		list.remove(4);
+		list.display();
+//		System.out.println(list.indexOf(55));
 	}
 }
