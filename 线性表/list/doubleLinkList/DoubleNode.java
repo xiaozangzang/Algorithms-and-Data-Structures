@@ -1,13 +1,13 @@
-package list.doubleLinkList;
+package doubleLinkList;
 /**
- * 鍙岄摼琛ㄧ粨鐐圭被
- * 鏁版嵁鍩熴�佸墠椹卞悗缁ф寚閽堝煙
+ * 双链表结点类
+ * 数据域、前驱后继指针域
  *
  */
 public class DoubleNode {
 	private int data;
-	private DoubleNode prior;  //鍓嶉┍
-	private DoubleNode next;	//鍚庣户
+	private DoubleNode prior;  //前驱
+	private DoubleNode next;	//后继
 	public DoubleNode() {
 		this(-1);
 	}
@@ -16,6 +16,12 @@ public class DoubleNode {
 		this.data = data;
 		this.prior = null;
 		this.next = null;
+	}
+	
+	public DoubleNode(int data,DoubleNode priorNode,DoubleNode nextNode){
+		this.data = data;
+		this.prior = priorNode;
+		this.next = nextNode;
 	}
 
 	public int getData() {

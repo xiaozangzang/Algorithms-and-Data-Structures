@@ -1,45 +1,65 @@
-package list.doubleLinkList;
+package doubleLinkList;
 
-import list.listDao.IList;
+import listDao.IList;
 
 /**
- * 鍙岄摼琛ㄧ粨鐐圭被
+ * 双链表结点类
  */
 
 public class DoubleList implements IList {
 
 	private DoubleNode head;
-
-	public DoubleList(DoubleNode head) {
+	
+	public DoubleList(){
 		head = new DoubleNode();
-		head.setPrior(null);
-		head.setNext(null);
 	}
+
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		head.setData(-1);
-		head.setNext(null);
-		head.setPrior(null);
+
 	}
 
 	@Override
 	public void display() throws Exception {
 		// TODO Auto-generated method stub
+		DoubleNode current = head;
+		if(current.getNext() == null){
+			System.out.println("该链表为空！");
+		}else{
+			System.out.println("总长度为："+length());
+			while(current.getNext() != null){
+				current = current.getNext();
+				System.out.print(current.getData() + "-->");
+			}
+			System.out.println("End");
+		}
 
 	}
 
 	@Override
 	public int get(int i) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return -1;
 	}
 
 	@Override
 	public int indexOf(int x) {
-		// TODO Auto-generated method stub
-		return 0;
+		DoubleNode current = head;
+		int index = 0;
+		if(current.getNext() == null){
+			System.out.println("链表为空！");
+			return -1;
+		}else{
+			while(current.getNext() != null){
+				current = current.getNext();
+				index++;
+				if(x == index){
+					break;
+				}
+			}
+		}
+		return current.getData();
 	}
 
 	@Override
@@ -50,30 +70,38 @@ public class DoubleList implements IList {
 		if (current == null) {
 			head.setNext(node);
 			node.setPrior(head);
+			System.out.println("添加成功！");
 		} else {
 			while (current.getNext() != null)
 				current = current.getNext();
 			current.setNext(node);
 			node.setPrior(current);
+			System.out.println("添加成功！");
 		}
 	}
 
 	@Override
 	public void insert(int i, int x) throws Exception {
 		// TODO Auto-generated method stub
-		DoubleNode current = head.getNext();
-		int j = 0;
-		while (current != null && j < i) {
-			current = current.getNext();
-			++j;
+		DoubleNode current = head;
+		int length = length();
+		int index = 0;
+		DoubleNode newNode = new DoubleNode(x);
+		if(i > length){
+			System.out.println("插入位置有误！");
+			return;
 		}
-		if (j != i && current != null)
-			throw new Exception("");
-		DoubleNode node = new DoubleNode(x);
-		current.getPrior().setNext(node);
-		node.setPrior(current.getPrior());
-		node.setNext(current);
-		current.setPrior(node);
+		while(current.getNext() != null){
+			current = current.getNext();
+			if(++index == i){
+				break;
+			}
+		}
+		newNode.setNext(current);
+		newNode.setPrior(current.getPrior());
+		current.getPrior().setNext(newNode);
+		current.setPrior(newNode);
+		System.out.println("添加成功！");
 	}
 
 	@Override
@@ -84,25 +112,37 @@ public class DoubleList implements IList {
 
 	@Override
 	public int length() {
-		// TODO Auto-generated method stub
-		return 0;
+		DoubleNode current = head;
+		int len = 0;
+		if(current.getNext() == null){
+			return len;
+		}else{
+			while(current.getNext() != null){
+				current = current.getNext();
+				len++;
+			}
+		}
+		return len;
 	}
 
 	@Override
 	public void remove(int i) throws Exception {
 		// TODO Auto-generated method stub
 		DoubleNode current = head.getNext();
-		int j = 0;
-		while(current != null && j < i - 1){
+		int index = 0;
+		if(i <= 0 || i > length()){
+			System.out.println("不在链表长度范围内！");
+			return;
+		}
+		while(current != null && ++index < i - 1){
 			current = current.getNext();
-			++j;
 		}
 		if(current == null)
-			throw new Exception("删锟斤拷位锟矫诧拷锟斤拷锟斤拷");
+			throw new Exception("该链表长度为空！");
+		System.out.println(current.getData());
 		current.getNext().getNext().setPrior(current);
 		current.setNext(current.getNext().getNext());
-		
-
+		System.out.println("Remove Success!");
 	}
 
 }
