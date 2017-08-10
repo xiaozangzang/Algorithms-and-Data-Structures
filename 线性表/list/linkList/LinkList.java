@@ -1,6 +1,6 @@
-package list.linkList;
+package linkList;
 
-import list.listDao.IList;
+import listDao.IList;
 
 import java.util.Scanner;
 
@@ -9,6 +9,14 @@ public class LinkList implements IList {
 
 	public LinkList() {
 		head = new Node();
+	}
+
+	public Node getHead() {
+		return head;
+	}
+
+	public void setHead(Node head) {
+		this.head = head;
 	}
 
 	public LinkList(int n, boolean order) {
@@ -40,9 +48,10 @@ public class LinkList implements IList {
 		if (current == null)
 			System.out.println("当前链表为空");
 		while (current != null) {
-			System.out.print(current.getData()+"  ");
+			System.out.print(current.getData()+"-->");
 			current = current.getNext();
 		}
+		System.out.println("End");
 	}
 
 	@Override
@@ -146,5 +155,19 @@ public class LinkList implements IList {
 			}
 			current = current.getNext();
 		}
+	}
+	/**
+	 * 链表逆序打印输出
+	 */
+	public void reserver(Node head){
+		Node p1,p2;
+		p1 = head;
+		while(head.getNext() != null){
+			p2 = head.getNext();
+			head.setNext(p2.getNext());
+			p2.setNext(p1);
+			p1 = p2;
+		}
+		this.head = p1;
 	}
 }
