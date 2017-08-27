@@ -10,7 +10,13 @@ import java.util.Arrays;
 public class ConstructCore {
 	/*
 	输入二叉树的前序遍历和中序遍历结果,重建二叉树并输出头节点
-	ex:12473568,47215386
+	ex:12473568,47215386；。
+				1
+			2		3
+		4		 5		6
+			7		8		
+			
+	
 	 */
 	public BinaryTreeNode constructCore(int[] preorder,int[] inorder) throws Exception
 	{
