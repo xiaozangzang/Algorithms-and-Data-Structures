@@ -13,28 +13,28 @@ public class RadixSort {
 
 	public void radixSort(int[] a, int d) {
 		int k = 0;
-		int n = 1;
-		int m = 1;
-		int[][] temp = new int[a.length][a.length];
-		int[] order = new int[a.length];
-		while (m <= d) {
-			for (int i = 0; i < a.length; i++) {
-				int lsd = ((a[i] / n) % 10);
-				temp[lsd][order[lsd]] = a[i];
-				order[lsd]++;
-			}
-			for (int i = 0; i < d; i++) {
-				if (order[i] != 0)
-					for (int j = 0; j < order[i]; j++) {
-						a[k] = temp[i][j];
-						k++;
-					}
-				order[i] = 0;
-			}
-			n *= 10;
-			k = 0;
-			m++;
-		}
+         int n = 1;
+         int m = 1;
+         int[][] temp = new int[10][a.length];
+         int[] order = new int[10];
+         while (m <= d) {
+             for (int i = 0; i < a.length; i++) {
+                 int lsd = ((a[i] / n) % 10);
+                 temp[lsd][order[lsd]] = a[i];
+                 order[lsd]++;
+             }
+             for (int i = 0; i < 10; i++) {
+                 if (order[i] != 0)
+                      for (int j = 0; j < order[i]; j++) {
+                          a[k] = temp[i][j];
+                          k++;
+                      }
+                 order[i] = 0;
+             }
+             n *= 10;
+             k = 0;
+             m++;
+         }
 
 	}
 
