@@ -1,6 +1,6 @@
-package tree;
+﻿package tree;
 /**
- *操作给定的二叉树，将其变换为源二叉树的镜像。
+ *操作给定的二叉树，将其变换为原二叉树的镜像。
  */
 public class Solution02 {
 	public void Mirror(TreeNode root) {
